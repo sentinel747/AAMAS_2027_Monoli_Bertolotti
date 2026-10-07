@@ -1,0 +1,18 @@
+[build-system]
+requires = ["maturin>=1.9,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "mars-core-py"
+description = "Kernel nativo opzionale della simulazione MarsABM."
+requires-python = ">=3.9"
+classifiers = ["Private :: Do Not Upload"]
+dynamic = ["version"]
+
+[tool.maturin]
+# `bindings = "pyo3"` e non "cffi": l'interfaccia e' generata dalle macro di PyO3.
+bindings = "pyo3"
+module-name = "mars_core_py"
+# Il modulo compilato non viene mai pubblicato: e' un artefatto locale della
+# migrazione, installato in sviluppo con `maturin develop`.
+strip = true

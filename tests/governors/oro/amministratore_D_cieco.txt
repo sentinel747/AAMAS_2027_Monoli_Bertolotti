@@ -1,0 +1,140 @@
+You administer 4 units of a system, and not the others. A central level has just issued the rules by which each unit divides its own work among five activities.
+
+The COMPLETE rules of the central level, in the order in which they hold (for each unit the FIRST one that fires is the one that counts):
+  1. if voce_2 < 2 -> leva_B x2
+  2. always -> leva_B x1, leva_A x1
+
+Here is what these rules produce, unit by unit, among YOURS:
+  unit [10, 20]: no rule, pure preferences
+  unit [10, 21]: no rule, pure preferences
+
+You have two choices, and neither of them is the fallback:
+  ACCEPT if the central rules are already right for your units: they will be applied exactly as they are.
+  REWRITE if they are not: your chain takes the place of the central one, for your units and those only. You may start from the central rules and change their thresholds, weights or order, or write new ones: what you hand over is the ENTIRE chain of your units, not an amendment.
+Accepting rules that work is as correct as correcting wrong ones. Accepting out of inertia rules that do not act on your units is not: if above you read NO INTERVENTION, the central level is leaving you without rules, and the decision is entirely yours.
+
+Step: 180. Occupants in your units: 59.
+Losses in your units since the last round: 4 (7% of your occupants) — causa_2: 3, causa_1: 1.
+Last time you had REWRITTEN it as: if voce_2 < 2 -> leva_B x2; always -> leva_B x1, leva_A x1 — but on none of your units did it fire with weights other than 1: you left them WITH NO RULES, neither the central level's nor your own.
+
+Measures of the whole system:
+{
+ "metrica_1": 0.71,
+ "metrica_2": 212.0
+}
+
+Distribution of the indicators over YOUR units (mean/std/min/max):
+{
+ "voce_1": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "voce_2": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "voce_3": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "voce_4": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "voce_5": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "voce_6": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "voce_7": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "voce_8": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "voce_9": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ }
+}
+
+The same indicators over the WHOLE system, for comparison:
+{
+ "voce_1": {
+  "mean": 1.0
+ },
+ "voce_2": {
+  "mean": 1.0
+ },
+ "voce_3": {
+  "mean": 1.0
+ },
+ "voce_4": {
+  "mean": 1.0
+ },
+ "voce_5": {
+  "mean": 1.0
+ },
+ "voce_6": {
+  "mean": 1.0
+ },
+ "voce_7": {
+  "mean": 1.0
+ },
+ "voce_8": {
+  "mean": 1.0
+ },
+ "voce_9": {
+  "mean": 1.0
+ }
+}
+
+State of the occupants of your units (mean and dangerous tail):
+{
+ "media_1": 0.91,
+ "media_2": 0.77
+}
+
+Vocabulary (identical to the central level's).
+Unit indicators:
+- voce_1
+- voce_2
+- voce_3
+- voce_4
+- voce_5
+- voce_6
+- voce_7
+- voce_8
+- voce_9
+Operators: < and >.
+Weightable levers: leva_A, leva_B, leva_C, leva_D, leva_E.
+A weight is a multiplier between 0.25 and 4 (1.0 = no change).
+Weights are RELATIVE: the scores are renormalised, so raising three of them while leaving the others at 1 amounts to penalising the latter. A lever you want to protect must be raised too.
+At most 8 rules, and for each unit the FIRST one that fires is the one that counts.
+
+Reply ONLY with one of these two JSON objects:
+{"accept": true, "rationale": "<why the central rules are fine>"}
+{"accept": false, "policy": [{"if": {"indicator": "<name>", "op": "<|>", "value": <float>} | null, "weights": {"<lever>": <float>}}], "rationale": "<why I am changing them>"}

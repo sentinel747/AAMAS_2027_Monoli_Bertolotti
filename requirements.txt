@@ -1,0 +1,18 @@
+# Simulator and analysis (versions used for the paper; Python 3.13)
+numpy==2.3.4
+PyYAML==6.0.3
+pandas==2.3.3
+scipy==1.17.1
+matplotlib==3.10.7
+Pillow==11.3.0
+httpx==0.28.1
+rich
+psutil
+pytest
+
+# Replay/analysis backend for the browser frontends
+fastapi==0.136.0
+uvicorn==0.43.0
+
+# Optional: Rust accelerator build (python scripts/build_rust.py)
+# maturin

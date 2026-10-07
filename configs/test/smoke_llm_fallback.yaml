@@ -1,0 +1,21 @@
+name: smoke_llm_fallback
+seed: 2
+days: 3
+simulation: {days_per_step: 3650, max_days: 36500}
+snapshot_interval: 1
+world:
+  width: 12
+  height: 12
+agents:
+  count: 5
+  llm_count: 1
+  llm_assignments:
+    - provider: fallback
+      model: fallback
+llm:
+  provider: fallback
+  max_calls_per_run: 3
+  max_calls_per_day: 3
+  max_estimated_cost_usd: 0.0
+population:
+  enabled: false

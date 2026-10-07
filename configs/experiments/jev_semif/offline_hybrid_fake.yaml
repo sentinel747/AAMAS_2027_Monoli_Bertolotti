@@ -1,0 +1,27 @@
+name: jev_semif_offline_hybrid_fake
+seed: 102
+days: 4
+simulation: {days_per_step: 7, max_days: 28}
+world: {width: 12, height: 12}
+agents: {count: 8, llm_count: 0}
+population: {enabled: false}
+headless:
+  fast_observation: true
+  store_memory_logs: false
+  log_interval_steps: 1
+governors:
+  arm: hybrid
+  cadence_steps: 1
+  wait_seconds: 1
+  assignments:
+    - {provider: fallback, model: fallback}
+  semantic:
+    provider: fake
+    run_id: jev-semif-offline-hybrid-fake
+    decisions:
+      jev-semif-governor-v1: deep_reasoning
+      jev-semif-admin-v1: accept_governor
+  administrators:
+    enabled: true
+    follow_governor_arm: true
+    cells_per_district: 3

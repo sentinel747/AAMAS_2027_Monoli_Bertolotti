@@ -1,0 +1,19 @@
+# Configurazione cargo locale al workspace Rust.
+
+[http]
+# Su questa macchina schannel non riesce a raggiungere il servizio di revoca dei
+# certificati e ogni accesso a crates.io fallisce con
+# CRYPT_E_NO_REVOCATION_CHECK (0x80092012). Questo flag disattiva il SOLO
+# controllo di revoca: la catena di certificati TLS continua a essere validata
+# normalmente. E' il workaround documentato da cargo per Windows in reti che non
+# espongono gli endpoint CRL/OCSP.
+#
+# La dipendenza di rete resta comunque limitata alla prima risoluzione: `Cargo.lock`
+# e' versionato e `cargo vendor` (vedi docs/rust_toolchain.md) rende le build
+# successive completamente offline.
+check-revoke = false
+
+[registries.crates-io]
+# Protocollo sparse: scarica solo i metadati dei crate effettivamente usati
+# invece di clonare l'intero indice.
+protocol = "sparse"

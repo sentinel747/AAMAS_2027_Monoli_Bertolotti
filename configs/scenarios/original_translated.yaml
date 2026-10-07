@@ -1,0 +1,19 @@
+name: original_translated
+model_variant: original_translated
+start_time: 0
+end_time: 120
+timestep: 1
+random_seed: 0
+selected_outputs:
+  - PressioneAtmosferica
+  - O2
+  - CO2
+  - N2
+  - TempMediaMarte
+  - AcquaSuperficiale
+  - Veg
+  - Pop
+constraints:
+  non_finite: replace_with_zero
+notes: >
+  Baseline preserves STGraph formulas. Unsupported vector/submodel formulas are reported and carried forward.

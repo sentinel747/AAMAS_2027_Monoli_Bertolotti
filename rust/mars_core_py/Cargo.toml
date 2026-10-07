@@ -1,0 +1,30 @@
+[package]
+name = "mars_core_py"
+description = "Ponte PyO3/NumPy fra la shell Python di MarsABM e il kernel mars_core."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true
+
+[lib]
+# Il nome del modulo importabile da Python. Deve coincidere con quello dichiarato
+# in `#[pymodule]` e con `module-name` nel pyproject, altrimenti l'import fallisce
+# con un messaggio che non spiega la causa.
+name = "mars_core_py"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+mars_core = { path = "../mars_core" }
+
+# `abi3-py39` produce un wheel valido per ogni CPython >= 3.9 invece che solo per
+# quello con cui e' stato compilato. Serve perche' il progetto deve restare
+# costruibile da un checkout pulito su macchine con Python diversi, e perche' un
+# aggiornamento di Python non deve invalidare i binari gia' misurati.
+pyo3 = { version = "0.29", features = ["extension-module", "abi3-py39"] }
+numpy = "0.29"
+
+[dev-dependencies]

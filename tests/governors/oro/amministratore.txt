@@ -1,0 +1,140 @@
+Sei l'amministratore del distretto 2 di una colonia marziana. Il governo centrale ha appena emanato la politica con cui i coloni scelgono che cosa fare. Tu amministri 4 celle e non le altre.
+
+La politica COMPLETA del governo, nell'ordine in cui vale (per ogni cella conta la PRIMA regola che scatta):
+  1. se food_per_occupant < 2 -> sustenance x2
+  2. sempre -> sustenance x1, build x1
+
+Ecco che cosa questa politica produce, cella per cella, nel TUO distretto:
+  cella [10, 20]: nessuna regola, preferenze pure
+  cella [10, 21]: nessuna regola, preferenze pure
+
+Hai due scelte, e nessuna delle due e' quella di riserva:
+  ACCETTA se la politica del governo e' gia' adeguata alle tue celle: le applicheranno cosi' come sono.
+  RISCRIVI se non lo e': la tua catena prende il posto di quella del governo, per le tue celle e solo per quelle. Puoi ripartire dalle regole del governo e cambiarne soglie, pesi o ordine, oppure scriverne di nuove: cio' che consegni e' la legge INTERA delle tue celle, non una modifica.
+Accettare una politica che funziona e' corretto quanto correggerne una che non funziona. Accettare per inerzia una politica che non interviene sulle tue celle, no: se sopra leggi NESSUN INTERVENTO, il governo ti sta lasciando senza politica, e la decisione e' interamente tua.
+
+Passo: 180. Coloni nel tuo distretto: 59.
+Morti nel tuo distretto dall'ultima tornata: 4 (7% dei tuoi coloni) — starvation: 3, dehydration: 1.
+La volta scorsa avevi RISCRITTO cosi': se food_per_occupant < 2 -> sustenance x2; sempre -> sustenance x1, build x1 — ma su nessuna delle tue celle scattava con pesi diversi da 1: le hai lasciate SENZA POLITICA, ne' quella del governo ne' la tua.
+
+Metriche dell'intera colonia (il quadro nazionale):
+{
+ "colony_prosperity_index": 0.71,
+ "food_stock": 212.0
+}
+
+Distribuzione degli indicatori sulle TUE celle (mean/std/min/max):
+{
+ "food_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "ice_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "material_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "minerals_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "occupants": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "oxygen_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "power_coverage": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "structure_integrity": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "water_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ }
+}
+
+Gli stessi indicatori sull'INTERA colonia, per confronto:
+{
+ "food_per_occupant": {
+  "mean": 1.0
+ },
+ "ice_per_occupant": {
+  "mean": 1.0
+ },
+ "material_per_occupant": {
+  "mean": 1.0
+ },
+ "minerals_per_occupant": {
+  "mean": 1.0
+ },
+ "occupants": {
+  "mean": 1.0
+ },
+ "oxygen_per_occupant": {
+  "mean": 1.0
+ },
+ "power_coverage": {
+  "mean": 1.0
+ },
+ "structure_integrity": {
+  "mean": 1.0
+ },
+ "water_per_occupant": {
+  "mean": 1.0
+ }
+}
+
+Stato dei coloni del tuo distretto (media e coda pericolosa: min per salute/idratazione/sazieta'/morale, max per fatica/stress):
+{
+ "health": 0.91,
+ "hydration": 0.77
+}
+
+Vocabolario (identico a quello del governo).
+Indicatori di cella:
+- food_per_occupant: cibo in giacenza nella cella, per occupante
+- water_per_occupant: acqua potabile in giacenza nella cella, per occupante
+- oxygen_per_occupant: ossigeno in giacenza nella cella, per occupante
+- ice_per_occupant: ghiaccio raccoglibile (giacenza piu' superficie), per occupante
+- material_per_occupant: construction_material nel magazzino della cella, per occupante
+- minerals_per_occupant: minerali nel giacimento della cella, per occupante
+- power_coverage: copertura elettrica: energia disponibile diviso il carico degli impianti della cella (1,0 = il fabbisogno e' coperto esatto)
+- structure_integrity: stato medio di manutenzione delle strutture della cella, da 0 a 1
+- occupants: quanti coloni stanno nella cella
+Operatori: < e >.
+Pilastri pesabili: build, explore, life, resources, sustenance.
+Un peso e' un moltiplicatore fra 0.25 e 4 (1.0 = nessun cambiamento).
+I pesi sono RELATIVI: i punteggi vengono rinormalizzati, quindi alzarne tre lasciando gli altri a 1 equivale a penalizzare questi ultimi. Un pilastro che vuoi proteggere va alzato anche lui.
+Al massimo 8 regole, e per ogni cella vale la PRIMA che scatta.
+
+Rispondi SOLO con uno di questi due JSON:
+{"accept": true, "rationale": "<perche' la politica del governo va bene>"}
+{"accept": false, "policy": [{"if": {"indicator": "<nome>", "op": "<|>", "value": <float>} | null, "weights": {"<pilastro>": <float>}}], "rationale": "<perche' la cambio>"}

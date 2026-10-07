@@ -1,0 +1,129 @@
+version: standard-scenarios-v1
+description: Suite standard ripetibile per confrontare agenti rule-based, LLM fallback e LLM reali.
+scenarios:
+  - id: standard_v1_balanced_colony
+    label: Balanced colony
+    description: Baseline bilanciata per confrontare sopravvivenza, infrastruttura e cooperazione.
+    config:
+      name: standard_v1_balanced_colony
+      seed: 11
+      days: 1000
+      simulation: {days_per_step: 3650, max_days: 3650000}
+      snapshot_interval: 50
+      world: {width: 360, height: 180, map_profile: balanced}
+      climate: {enabled: true, source: auto, provider: call_mcd, scenario: climatology}
+      environmental_layer: {enabled: true, role: background}
+      agents: {count: 15, llm_count: 0, initial_inventory: {food: 6, water: 6, construction_material: 6, tools: 2, oxygen: 2, energy: 2, minerals: 3, med_kits: 2}}
+      colony: {initial_structures: {habitat: 1, greenhouse: 1, solar_array: 1, oxygen_plant: 1}}
+      social: {earth_mars_delay_minutes: 12}
+      llm: {max_calls_per_run: 0, max_calls_per_day: 0, max_estimated_cost_usd: 0}
+      population: {enabled: true, max_agents: 45, daily_spawn_probability: 0.03, prosperity_growth_scale: 0.03, min_habitability_for_growth: 0.02}
+    evaluation:
+      min_survival_component: 0.7
+      max_action_rejection_rate: 0.25
+      primary_components: [survival, colony, cooperation, efficiency]
+  - id: standard_v1_resource_scarcity
+    label: Resource scarcity
+    description: Stress test su mondo piu piccolo, meno agenti e pressione sulle risorse locali.
+    config:
+      name: standard_v1_resource_scarcity
+      seed: 23
+      days: 1000
+      simulation: {days_per_step: 3650, max_days: 3650000}
+      snapshot_interval: 50
+      world: {width: 28, height: 28, map_profile: scarce_resources}
+      climate: {enabled: true, source: auto, provider: call_mcd, scenario: cold}
+      environmental_layer: {enabled: true, role: background}
+      agents: {count: 12, llm_count: 0, initial_inventory: {food: 4, water: 4, construction_material: 4, tools: 1, oxygen: 2, energy: 2, minerals: 2, med_kits: 1}}
+      colony: {initial_structures: {habitat: 1, greenhouse: 1, solar_array: 1}}
+      social: {earth_mars_delay_minutes: 16}
+      llm: {max_calls_per_run: 0, max_calls_per_day: 0, max_estimated_cost_usd: 0}
+      population: {enabled: true, max_agents: 28, daily_spawn_probability: 0.02, prosperity_growth_scale: 0.02, min_habitability_for_growth: 0.02}
+    evaluation:
+      min_survival_component: 0.55
+      max_action_rejection_rate: 0.3
+      primary_components: [survival, cooperation, efficiency]
+  - id: standard_v1_cooperation_focus
+    label: Cooperation focus
+    description: Scenario orientato a comunicazione, condivisione risorse e stabilita sociale.
+    config:
+      name: standard_v1_cooperation_focus
+      seed: 31
+      days: 1000
+      simulation: {days_per_step: 3650, max_days: 3650000}
+      snapshot_interval: 50
+      world: {width: 42, height: 42, map_profile: fragmented}
+      climate: {enabled: true, source: auto, provider: call_mcd, scenario: climatology}
+      environmental_layer: {enabled: true, role: background}
+      agents: {count: 20, llm_count: 0, initial_inventory: {food: 7, water: 7, construction_material: 5, tools: 2, oxygen: 2, energy: 2, minerals: 3, med_kits: 2}}
+      colony: {initial_structures: {habitat: 2, greenhouse: 1, solar_array: 1, oxygen_plant: 1}}
+      social: {earth_mars_delay_minutes: 12}
+      llm: {max_calls_per_run: 0, max_calls_per_day: 0, max_estimated_cost_usd: 0}
+      population: {enabled: true, max_agents: 60, daily_spawn_probability: 0.035, prosperity_growth_scale: 0.035, min_habitability_for_growth: 0.02}
+    evaluation:
+      min_survival_component: 0.65
+      max_action_rejection_rate: 0.25
+      primary_components: [cooperation, survival]
+  - id: standard_v1_colony_expansion
+    label: Colony expansion
+    description: Durata piu lunga per misurare prosperita, infrastruttura e crescita interna della colonia.
+    config:
+      name: standard_v1_colony_expansion
+      seed: 47
+      days: 1200
+      simulation: {days_per_step: 3650, max_days: 4380000}
+      snapshot_interval: 50
+      world: {width: 360, height: 180, map_profile: mineral_rich}
+      climate: {enabled: true, source: auto, provider: call_mcd, scenario: warm}
+      environmental_layer: {enabled: true, role: background}
+      agents: {count: 18, llm_count: 0, initial_inventory: {food: 8, water: 8, construction_material: 8, tools: 3, oxygen: 2, energy: 2, minerals: 4, med_kits: 2}}
+      colony: {initial_structures: {habitat: 2, greenhouse: 2, solar_array: 2, oxygen_plant: 1, storage_depot: 1}}
+      social: {earth_mars_delay_minutes: 10}
+      llm: {max_calls_per_run: 0, max_calls_per_day: 0, max_estimated_cost_usd: 0}
+      population: {enabled: true, max_agents: 80, daily_spawn_probability: 0.05, prosperity_growth_scale: 0.05, min_habitability_for_growth: 0.02}
+    evaluation:
+      min_survival_component: 0.6
+      max_action_rejection_rate: 0.25
+      primary_components: [colony, efficiency]
+  - id: standard_v1_survival_extreme
+    label: Survival extreme
+    description: Scenario breve e ostile per valutare recupero, sicurezza e mortalita, usando il caso warm dust valido per tutto l anno marziano.
+    config:
+      name: standard_v1_survival_extreme
+      seed: 59
+      days: 1000
+      simulation: {days_per_step: 3650, max_days: 3650000}
+      snapshot_interval: 50
+      world: {width: 24, height: 24, map_profile: high_hazard}
+      climate: {enabled: true, source: auto, provider: call_mcd, scenario: warm}
+      environmental_layer: {enabled: true, role: background}
+      agents: {count: 10, llm_count: 0, initial_inventory: {food: 4, water: 4, construction_material: 4, tools: 1, oxygen: 2, energy: 2, minerals: 2, med_kits: 2}}
+      colony: {initial_structures: {habitat: 1, greenhouse: 1}}
+      social: {earth_mars_delay_minutes: 22}
+      llm: {max_calls_per_run: 0, max_calls_per_day: 0, max_estimated_cost_usd: 0}
+      population: {enabled: true, max_agents: 22, daily_spawn_probability: 0.015, prosperity_growth_scale: 0.015, min_habitability_for_growth: 0.02}
+    evaluation:
+      min_survival_component: 0.45
+      max_action_rejection_rate: 0.35
+      primary_components: [survival, efficiency]
+  - id: standard_v1_llm_fallback_parity
+    label: LLM fallback parity
+    description: Scenario breve per confrontare agenti LLM in fallback con la policy rule-based.
+    config:
+      name: standard_v1_llm_fallback_parity
+      seed: 67
+      days: 1000
+      simulation: {days_per_step: 3650, max_days: 3650000}
+      snapshot_interval: 50
+      world: {width: 32, height: 32, map_profile: ice_rich}
+      climate: {enabled: true, source: auto, provider: call_mcd, scenario: climatology}
+      environmental_layer: {enabled: true, role: background}
+      agents: {count: 8, llm_count: 2, initial_inventory: {food: 6, water: 6, construction_material: 5, tools: 2, oxygen: 2, energy: 2, minerals: 3, med_kits: 2}}
+      colony: {initial_structures: {habitat: 1, greenhouse: 1, solar_array: 1}}
+      social: {earth_mars_delay_minutes: 12}
+      llm: {max_calls_per_run: 24, max_calls_per_day: 8, max_estimated_cost_usd: 0}
+      population: {enabled: true, max_agents: 24, daily_spawn_probability: 0.025, prosperity_growth_scale: 0.025, min_habitability_for_growth: 0.02}
+    evaluation:
+      min_survival_component: 0.6
+      max_action_rejection_rate: 0.3
+      primary_components: [survival, efficiency]

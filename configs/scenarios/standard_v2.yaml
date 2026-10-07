@@ -1,0 +1,54 @@
+version: standard-scenarios-v2
+description: Suite v2 semplificata per run headless su popolazione, risorse e area colonia.
+scenarios:
+  - id: standard_v2_headless_rule_based
+    label: V2 headless rule-based
+    description: Baseline terminale senza GUI, senza psicosociale, con osservazione veloce.
+    config:
+      name: standard_v2_headless_rule_based
+      seed: 101
+      days: 1000
+      simulation: {days_per_step: 1, max_days: 1000}
+      snapshot_interval: 0
+      world: {width: 80, height: 50, map_profile: balanced}
+      environmental_layer: {enabled: false}
+      model: {psychosocial_enabled: false}
+      headless: {fast_observation: true, store_memory_logs: false, log_interval_steps: 50, max_action_log_rows: 50000, aggregate_threshold_agents: 50000}
+      agents: {count: 1000, llm_count: 0, initial_inventory: {food: 10, water: 10, construction_material: 8, tools: 2, oxygen: 4, energy: 2, minerals: 4, med_kits: 1}}
+      colony: {initial_structures: {habitat: 3, greenhouse: 3, solar_array: 2, oxygen_plant: 1, storage_depot: 1}}
+      llm: {max_calls_per_step: 0, max_calls_per_run: 0, max_calls_per_day: 0, max_estimated_cost_usd: 0}
+      population: {enabled: true, max_agents: 5000, annual_growth_rate: 0.018, daily_spawn_probability: 0.02, prosperity_growth_scale: 0.02, min_habitability_for_growth: 0.02}
+  - id: standard_v2_headless_llm_governed
+    label: V2 headless LLM governed
+    description: Run mista con molti agenti LLM logici ma massimo 5 chiamate API reali per step.
+    config:
+      name: standard_v2_headless_llm_governed
+      seed: 102
+      days: 500
+      simulation: {days_per_step: 1, max_days: 500}
+      snapshot_interval: 0
+      world: {width: 80, height: 50, map_profile: balanced}
+      environmental_layer: {enabled: false}
+      model: {psychosocial_enabled: false}
+      headless: {fast_observation: true, store_memory_logs: false, log_interval_steps: 25, max_action_log_rows: 50000, aggregate_threshold_agents: 50000}
+      agents: {count: 1000, llm_count: 100, initial_inventory: {food: 10, water: 10, construction_material: 8, tools: 2, oxygen: 4, energy: 2, minerals: 4, med_kits: 1}}
+      colony: {initial_structures: {habitat: 3, greenhouse: 3, solar_array: 2, oxygen_plant: 1, storage_depot: 1}}
+      llm: {max_calls_per_step: 5, max_calls_per_run: 2500, max_calls_per_day: 5, max_estimated_cost_usd: 5}
+      population: {enabled: true, max_agents: 5000, annual_growth_rate: 0.018, daily_spawn_probability: 0.02, prosperity_growth_scale: 0.02, min_habitability_for_growth: 0.02}
+  - id: standard_v2_extreme_macro_estimate
+    label: V2 extreme macro estimate 100k
+    description: Stima macro popolazione-risorse per 100000 agenti e 10000 step; non e una run ABM per-colono.
+    config:
+      name: standard_v2_extreme_aggregate
+      seed: 103
+      days: 10000
+      simulation: {days_per_step: 1, max_days: 10000}
+      snapshot_interval: 0
+      world: {width: 80, height: 50, map_profile: balanced}
+      environmental_layer: {enabled: false}
+      model: {psychosocial_enabled: false}
+      headless: {aggregate_mode: true, aggregate_sample_agents: 50, log_interval_steps: 500, aggregate_threshold_agents: 50000}
+      agents: {count: 100000, llm_count: 0, initial_inventory: {food: 10, water: 10, construction_material: 8, tools: 2, oxygen: 4, energy: 2, minerals: 4, med_kits: 1}}
+      colony: {initial_structures: {habitat: 50, greenhouse: 60, solar_array: 40, oxygen_plant: 20, storage_depot: 25}}
+      llm: {max_calls_per_step: 0, max_calls_per_run: 0, max_calls_per_day: 0, max_estimated_cost_usd: 0}
+      population: {enabled: true, max_agents: 150000, annual_growth_rate: 0.012}

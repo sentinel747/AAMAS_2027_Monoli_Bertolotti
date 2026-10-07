@@ -1,0 +1,140 @@
+Amministri 4 unita' di un sistema, e non le altre. Un livello centrale ha appena emanato le regole con cui ogni unita' ripartisce il proprio lavoro fra cinque attivita'.
+
+Le regole COMPLETE del livello centrale, nell'ordine in cui valgono (per ogni unita' conta la PRIMA che scatta):
+  1. se voce_2 < 2 -> leva_B x2
+  2. sempre -> leva_B x1, leva_A x1
+
+Ecco che cosa queste regole producono, unita' per unita', fra le TUE:
+  unita' [10, 20]: nessuna regola, preferenze pure
+  unita' [10, 21]: nessuna regola, preferenze pure
+
+Hai due scelte, e nessuna delle due e' quella di riserva:
+  ACCETTA se le regole del livello centrale vanno gia' bene per le tue unita': verranno applicate cosi' come sono.
+  RISCRIVI se non vanno bene: la tua catena prende il posto di quella centrale, per le tue unita' e solo per quelle. Puoi ripartire dalle regole centrali e cambiarne soglie, pesi o ordine, oppure scriverne di nuove: cio' che consegni e' la catena INTERA delle tue unita', non una modifica.
+Accettare regole che funzionano e' corretto quanto correggerne di sbagliate. Accettare per inerzia regole che non intervengono sulle tue unita', no: se sopra leggi NESSUN INTERVENTO, il livello centrale ti sta lasciando senza regole, e la decisione e' interamente tua.
+
+Passo: 180. Occupanti nelle tue unita': 59.
+Perdite nelle tue unita' dall'ultima tornata: 4 (7% dei tuoi occupanti) — causa_2: 3, causa_1: 1.
+La volta scorsa avevi RISCRITTO cosi': se voce_2 < 2 -> leva_B x2; sempre -> leva_B x1, leva_A x1 — ma su nessuna delle tue unita' scattava con pesi diversi da 1: le hai lasciate SENZA REGOLE, ne' quelle del livello centrale ne' le tue.
+
+Misure dell'intero sistema:
+{
+ "metrica_1": 0.71,
+ "metrica_2": 212.0
+}
+
+Distribuzione degli indicatori sulle TUE unita' (mean/std/min/max):
+{
+ "voce_1": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "voce_2": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "voce_3": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "voce_4": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "voce_5": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "voce_6": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "voce_7": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "voce_8": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "voce_9": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ }
+}
+
+Gli stessi indicatori sull'INTERO sistema, per confronto:
+{
+ "voce_1": {
+  "mean": 1.0
+ },
+ "voce_2": {
+  "mean": 1.0
+ },
+ "voce_3": {
+  "mean": 1.0
+ },
+ "voce_4": {
+  "mean": 1.0
+ },
+ "voce_5": {
+  "mean": 1.0
+ },
+ "voce_6": {
+  "mean": 1.0
+ },
+ "voce_7": {
+  "mean": 1.0
+ },
+ "voce_8": {
+  "mean": 1.0
+ },
+ "voce_9": {
+  "mean": 1.0
+ }
+}
+
+Stato degli occupanti delle tue unita' (media e coda pericolosa):
+{
+ "media_1": 0.91,
+ "media_2": 0.77
+}
+
+Vocabolario (identico a quello del livello centrale).
+Indicatori di unita':
+- voce_1
+- voce_2
+- voce_3
+- voce_4
+- voce_5
+- voce_6
+- voce_7
+- voce_8
+- voce_9
+Operatori: < e >.
+Leve pesabili: leva_A, leva_B, leva_C, leva_D, leva_E.
+Un peso e' un moltiplicatore fra 0.25 e 4 (1.0 = nessun cambiamento).
+I pesi sono RELATIVI: i punteggi vengono rinormalizzati, quindi alzarne tre lasciando gli altri a 1 equivale a penalizzare questi ultimi. Una leva che vuoi proteggere va alzata anche lei.
+Al massimo 8 regole, e per ogni unita' vale la PRIMA che scatta.
+
+Rispondi SOLO con uno di questi due JSON:
+{"accept": true, "rationale": "<perche' le regole centrali vanno bene>"}
+{"accept": false, "policy": [{"if": {"indicator": "<nome>", "op": "<|>", "value": <float>} | null, "weights": {"<leva>": <float>}}], "rationale": "<perche' le cambio>"}

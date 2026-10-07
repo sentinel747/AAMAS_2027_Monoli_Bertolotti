@@ -1,0 +1,24 @@
+# Strato SemIf dei singoli agenti sulla GPU farm privata (costo zero), tramite
+# il gateway locale semif-runtime avviato a parte su 127.0.0.1:8008 con
+# VLLM_DECISION_API=chat. Solo livello 1, cadenza 4 passi: misura dello spike
+# del 2026-09-22 (~20,7 decisioni/s sulla farm).
+name: jev_semif_agents_farm_l1
+seed: 101
+days: 140
+simulation: {days_per_step: 7, max_days: 140}
+world: {width: 36, height: 24}
+agents: {count: 50, llm_count: 0, decision_mode: preferences}
+headless:
+  fast_observation: true
+  store_memory_logs: false
+  log_interval_steps: 5
+semantic_agents:
+  mode: all
+  cadence_steps: 4
+  levels: 1
+  workers: 64
+  semantic:
+    provider: rest
+    endpoint: http://127.0.0.1:8008
+    run_id: jev-semif-agents-farm-l1
+    timeout_seconds: 30

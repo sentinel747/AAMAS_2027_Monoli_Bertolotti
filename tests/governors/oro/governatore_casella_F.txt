@@ -1,0 +1,114 @@
+You are the governor of the Martian colony. You are not on the surface: you observe the aggregates and you write the POLICY by which every colonist will then decide on their own.
+
+How a colonist decides: at each step they sample one of six pillars with scores = individual preferences x personal urgencies x cell priority x skill. Your policy multiplies the pillars, cell by cell, wherever its conditions fire. Where no rule fires, the colonist chooses on their own preferences alone. A weight cannot make possible an action that the cell forbids.
+
+The reference policy of the non-LLM arm is:
+if food_per_occupant < 2 -> sustenance x3; if occupants > 150 -> explore x2; otherwise every colonist chooses on their own preferences.
+You are not bound to it: you may write any policy in the vocabulary below - different thresholds, weights and different pillars - and you must explain why.
+
+Step: 180. Population: 59. Occupied units: 4.
+Aggregates:
+{
+ "colony_prosperity_index": 0.71,
+ "food_stock": 212.0
+}
+
+Distribution of the indicators over the occupied units (mean/std/min/max):
+{
+ "food_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "ice_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "material_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "minerals_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "occupants": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "oxygen_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "power_coverage": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "structure_integrity": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "water_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ }
+}
+
+The same indicators WEIGHTED per colonist (each unit weighs as many colonists as it hosts; weighted mean/std, min/max per unit):
+{}
+
+Deaths since the last tick: none.
+
+Population averages:
+{
+ "health": 0.91,
+ "hydration": 0.77
+}
+Structure totals:
+{
+ "greenhouse": 12,
+ "shelter": 48
+}
+
+Policy vocabulary.
+Indicators (conditions are evaluated on EVERY unit, at every step):
+- food_per_occupant: food in stock in the cell, per occupant
+- water_per_occupant: drinkable water in stock in the cell, per occupant
+- oxygen_per_occupant: oxygen in stock in the cell, per occupant
+- ice_per_occupant: collectable ice (stock plus surface), per occupant
+- material_per_occupant: construction_material in the cell's warehouse, per occupant
+- minerals_per_occupant: minerals in the cell's seam, per occupant
+- power_coverage: power coverage: available energy divided by the load of the cell's installations (1.0 = demand is met exactly)
+- structure_integrity: average maintenance state of the cell's structures, from 0 to 1
+- occupants: how many colonists are in the cell
+Operators: < and >.
+Weightable levers: build, explore, life, resources, sustenance.
+What each pillar covers:
+- sustenance: drinking, eating, collecting ice, farming and harvesting food. The pillar of hunger and thirst.
+- resources: collecting minerals from the deposit and construction_material from the cell's warehouse. WARNING: collecting construction_material does not PRODUCE any — it moves it from the warehouse into the colonists' pockets, and construction already draws directly from the warehouse. New material comes from the deposits (and from ISRU, if active); minerals from the seam. Weighting `resources` in order to 'have more material' is therefore wasted work: it helps only where the colonists must carry it with them (moves, foundations).
+- build: erecting structures (greenhouses, habitats, panels, labs...) and maintaining them. A structure whose per-inhabitant ratio is already satisfied is not built anyway.
+- life: rest, care, recovery. It produces nothing by itself.
+- explore: moving and exploring, that is, founding new settlements.
+A weight is a multiplier between 0.25 and 4 (1.0 = no change; below 1 discourages, above 1 encourages).
+Weights are RELATIVE among the levers: the scores are renormalised, so raising three levers to x2-x3 while leaving the others at 1 amounts to PENALISING the latter, which lose share in the sampling. A lever you want to protect (for example explore, without which nobody founds new cells) must be raised too, not left at 1.
+At most 8 rules. For each unit the FIRST rule that fires is the one that counts, in the order in which you write them; the others are ignored. A rule with "if": null always fires and closes the chain.
+
+Reply ONLY with this JSON:
+{"policy": [{"if": {"indicator": "<name>", "op": "<|>", "value": <float>} | null, "weights": {"<lever>": <float>}}], "rationale": "<why>"}

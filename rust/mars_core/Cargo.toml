@@ -1,0 +1,20 @@
+[package]
+name = "mars_core"
+description = "Kernel deterministico della simulazione MarsABM, indipendente da Python."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true
+
+# Nessuna dipendenza, e deve restare cosi' finche' possibile: questo crate e' la
+# logica pura. Il ponte verso Python (PyO3, NumPy) vive interamente in
+# `mars_core_py`, cosi' `mars_core` resta testabile con `cargo test` senza un
+# interprete Python e non puo' accidentalmente acquisire un'ownership di dati
+# Python che renderebbe impossibile portarlo altrove.
+[dependencies]
+
+[dev-dependencies]

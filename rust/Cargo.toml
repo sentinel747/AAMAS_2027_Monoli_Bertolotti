@@ -1,0 +1,47 @@
+[workspace]
+resolver = "3"
+members = ["mars_core", "mars_core_py"]
+
+# Metadati e lint condivisi: i crate membri li ereditano con `.workspace = true`,
+# cosi' una regola di stile o un bump di edizione si cambiano in un punto solo.
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.97"
+license = "MIT"
+publish = false
+
+[workspace.lints.rust]
+# Il kernel deve restare in Rust sicuro: l'unico `unsafe` legittimo di questo
+# progetto vive dentro le macro di PyO3, non nel codice che scriviamo noi.
+unsafe_code = "deny"
+missing_docs = "warn"
+
+[workspace.lints.clippy]
+# `priority = -1` sui gruppi e' necessario, non cosmetico: senza di esso i gruppi
+# e i singoli lint hanno la stessa priorita' (0) e l'ordine di applicazione degli
+# `allow` sottostanti non e' garantito. Clippy stesso lo segnala con
+# `lint_groups_priority`.
+all = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+# La simulazione lavora su indici di griglia e conteggi di agenti che
+# attraversano continuamente usize/i64/f64. Le conversioni sono reali e vanno
+# gestite, non silenziate: restano warning, ma non `-D warnings` a caso.
+cast_precision_loss = "allow"
+cast_possible_truncation = "allow"
+
+[profile.release]
+# La migrazione ha senso solo se il codice nativo e' compilato per la velocita':
+# `lto` e una sola unita' di codegen permettono l'inlining fra i crate del
+# workspace, che e' esattamente il confine mars_core_py -> mars_core.
+lto = "fat"
+codegen-units = 1
+# `panic = "abort"` sarebbe sbagliato qui: PyO3 intercetta i panic con
+# `catch_unwind` e li converte in eccezioni Python. Con abort un panic nel kernel
+# terminerebbe l'intero interprete invece di risalire alla shell, e il Task 10 del
+# piano richiede esplicitamente error injection e recovery senza corrompere lo
+# stato. Lo unwinding resta quindi attivo.
+
+[profile.bench]
+lto = "fat"
+codegen-units = 1

@@ -1,0 +1,9 @@
+# Pin del toolchain. Una migrazione che deve produrre risultati bit-exact
+# riproducibili non puo' dipendere da quale versione di rustc capita di avere
+# installata: un cambio di versione puo' cambiare l'ordine delle ottimizzazioni
+# in virgola mobile e quindi l'ultimo bit di un risultato.
+[toolchain]
+channel = "1.97.1"
+components = ["rustfmt", "clippy"]
+targets = ["x86_64-pc-windows-msvc"]
+profile = "minimal"

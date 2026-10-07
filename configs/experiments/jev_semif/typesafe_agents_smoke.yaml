@@ -1,0 +1,27 @@
+# Smoke dello strato SemIf degli agenti sull'API ufficiale TypeSafe/Jev.
+# A PAGAMENTO: chiave in TYPESAFE_AI; registro cumulativo in
+# runs/jev_semif_experiments/_typesafe_spend.json; budget_usd e' il tetto
+# cumulativo del registro (autorizzazione dell'utente: 5 euro in tutto).
+# 20 agenti, 20 passi, cadenza 10 -> 2 confini, 40 decisioni.
+name: jev_semif_agents_typesafe_smoke
+seed: 101
+days: 140
+simulation: {days_per_step: 7, max_days: 140}
+world: {width: 24, height: 16}
+agents: {count: 20, llm_count: 0, decision_mode: preferences}
+headless:
+  fast_observation: true
+  store_memory_logs: false
+  log_interval_steps: 5
+semantic_agents:
+  mode: all
+  cadence_steps: 10
+  levels: 1
+  workers: 4
+  semantic:
+    provider: typesafe
+    budget_usd: 0.5
+    api_key_env: TYPESAFE_AI
+    model: jev-latest
+    question_type: choice
+    run_id: jev-semif-agents-typesafe-smoke

@@ -1,0 +1,13 @@
+name: smoke_rule_based
+seed: 1
+days: 3
+simulation: {days_per_step: 3650, max_days: 36500}
+snapshot_interval: 1
+world:
+  width: 12
+  height: 12
+agents:
+  count: 5
+  llm_count: 0
+population:
+  enabled: false

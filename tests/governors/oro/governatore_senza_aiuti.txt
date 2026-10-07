@@ -1,0 +1,110 @@
+Sei il governatore della colonia marziana. Non sei sulla superficie: osservi gli aggregati e scrivi la POLITICA con cui ogni colono decidera' da solo.
+
+Come decide un colono: a ogni passo campiona uno fra sei pilastri con punteggi = preferenze individuali x urgenze personali x priorita' della cella x abilita'. La tua politica moltiplica i pilastri, cella per cella, dove le sue condizioni scattano. Dove nessuna regola scatta, il colono sceglie con le sole proprie preferenze. Un peso non puo' rendere possibile un'azione che la cella vieta.
+
+Passo: 180. Popolazione: 59. Unita' occupate: 4.
+Aggregati:
+{
+ "colony_prosperity_index": 0.71,
+ "food_stock": 212.0
+}
+
+Distribuzione degli indicatori sulle unita' occupate (mean/std/min/max):
+{
+ "food_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "ice_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "material_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "minerals_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "occupants": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "oxygen_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "power_coverage": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "structure_integrity": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "water_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ }
+}
+
+Gli stessi indicatori PESATI per colono (ogni unita' pesa quanti coloni ospita; mean/std pesate, min/max per unita'):
+{}
+
+Morti dall'ultimo tick: nessuno.
+
+Medie di popolazione:
+{
+ "health": 0.91,
+ "hydration": 0.77
+}
+Totali di struttura:
+{
+ "greenhouse": 12,
+ "shelter": 48
+}
+
+Vocabolario della politica.
+Indicatori (le condizioni si valutano su OGNI unita', a ogni passo):
+- food_per_occupant: cibo in giacenza nella cella, per occupante
+- water_per_occupant: acqua potabile in giacenza nella cella, per occupante
+- oxygen_per_occupant: ossigeno in giacenza nella cella, per occupante
+- ice_per_occupant: ghiaccio raccoglibile (giacenza piu' superficie), per occupante
+- material_per_occupant: construction_material nel magazzino della cella, per occupante
+- minerals_per_occupant: minerali nel giacimento della cella, per occupante
+- power_coverage: copertura elettrica: energia disponibile diviso il carico degli impianti della cella (1,0 = il fabbisogno e' coperto esatto)
+- structure_integrity: stato medio di manutenzione delle strutture della cella, da 0 a 1
+- occupants: quanti coloni stanno nella cella
+Operatori: < e >.
+Leve pesabili: build, explore, life, resources, sustenance.
+Che cosa copre ciascun pilastro:
+- sustenance: bere, mangiare, raccogliere ghiaccio, coltivare e raccogliere cibo. Il pilastro della fame e della sete.
+- resources: raccogliere minerali dal giacimento e construction_material dal magazzino della cella. ATTENZIONE: raccogliere construction_material non ne PRODUCE — lo sposta dal magazzino alle tasche dei coloni, e le costruzioni attingono gia' direttamente dal magazzino. Il materiale nuovo nasce dai depositi (e dall'ISRU, se attivo); i minerali dal giacimento. Pesare `resources` per 'avere piu' materiale' e' quindi lavoro sprecato: serve solo dove i coloni devono portarselo dietro (spostamenti, fondazioni).
+- build: erigere strutture (serre, habitat, pannelli, laboratori...) e mantenerle. Una struttura il cui rapporto per abitante e' gia' soddisfatto non viene costruita comunque.
+- life: riposo, cure, recupero. Non produce nulla di per se'.
+- explore: muoversi ed esplorare, cioe' fondare nuovi insediamenti.
+Un peso e' un moltiplicatore fra 0.25 e 4 (1.0 = nessun cambiamento; sotto 1 scoraggia, sopra 1 incoraggia).
+I pesi sono RELATIVI fra le leve: i punteggi vengono rinormalizzati, quindi alzare tre leve a x2-x3 lasciando le altre a 1 equivale a PENALIZZARE queste ultime, che perdono quota nel campionamento. Una leva che vuoi proteggere (per esempio explore, senza cui nessuno fonda nuove celle) va alzata anche lei, non lasciata a 1.
+Al massimo 8 regole. Per ogni unita' vale la PRIMA regola che scatta, nell'ordine in cui le scrivi; le altre vengono ignorate. Una regola con "if": null scatta sempre e chiude la catena.
+
+Rispondi SOLO con questo JSON:
+{"policy": [{"if": {"indicator": "<nome>", "op": "<|>", "value": <float>} | null, "weights": {"<leva>": <float>}}], "rationale": "<perche'>"}

@@ -1,0 +1,24 @@
+# Strato SemIf dei singoli agenti, offline: provider fake, nessuna rete.
+# Ogni agente riceve "explore" al livello 1 a ogni passo (fattori non neutri),
+# per verificare che lo strato agisca e che il registro sia rieseguibile.
+name: jev_semif_agents_offline_fake
+seed: 101
+days: 4
+simulation: {days_per_step: 7, max_days: 28}
+world: {width: 12, height: 12}
+agents: {count: 8, llm_count: 0, decision_mode: preferences}
+population: {enabled: false}
+headless:
+  fast_observation: true
+  store_memory_logs: false
+  log_interval_steps: 1
+semantic_agents:
+  mode: all
+  cadence_steps: 1
+  levels: 2
+  workers: 2
+  semantic:
+    provider: fake
+    run_id: jev-semif-agents-offline-fake
+    decisions:
+      jev-semif-agent-v1:L1: explore

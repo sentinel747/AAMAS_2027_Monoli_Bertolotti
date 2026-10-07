@@ -1,0 +1,125 @@
+from __future__ import annotations
+
+import argparse
+import subprocess
+from datetime import datetime
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+PROGRESS_PATH = ROOT / "tesiprogress.md"
+IMPORTANT_PREFIXES = (
+    "src/",
+    "frontend/src/",
+    "docs/",
+    "configs/",
+    "tests/",
+    "examples/",
+    "prompts/",
+)
+
+
+def run_git(args: list[str]) -> str:
+    result = subprocess.run(
+        ["git", *args],
+        cwd=ROOT,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+        check=False,
+    )
+    return result.stdout.strip()
+
+
+def changed_files(staged: bool = True) -> list[str]:
+    args = ["diff", "--name-only", "--cached"] if staged else ["status", "--short"]
+    output = run_git(args)
+    rows: list[str] = []
+    for line in output.splitlines():
+        value = line.strip()
+        if not value:
+            continue
+        if not staged:
+            value = value[3:].strip() if len(value) > 3 else value
+        value = value.replace("\\", "/")
+        if value and value != "tesiprogress.md":
+            rows.append(value)
+    return rows
+
+
+def is_important(path: str) -> bool:
+    return path.startswith(IMPORTANT_PREFIXES) or path in {"README.md", "tesiprogress.md"}
+
+
+def append_entry(title: str, summary: str, files: list[str], tests: str, source: str, stage: bool) -> bool:
+    if not PROGRESS_PATH.exists():
+        raise FileNotFoundError(f"Missing {PROGRESS_PATH}")
+
+    important_files = [path for path in files if is_important(path)]
+    if source == "hook" and not important_files:
+        return False
+
+    timestamp = datetime.now().isoformat(timespec="seconds")
+    current_commit = run_git(["rev-parse", "--short", "HEAD"]) or "unknown"
+    file_lines = "\n".join(f"- `{path}`" for path in important_files[:30]) or "- Nessun file specificato."
+    if len(important_files) > 30:
+        file_lines += f"\n- ... altri {len(important_files) - 30} file"
+
+    entry = (
+        f"\n### {timestamp} - {title}\n\n"
+        f"- Origine: `{source}`\n"
+        f"- Commit base: `{current_commit}`\n"
+        f"- Sintesi: {summary}\n"
+        f"- Verifiche: {tests or 'da compilare manualmente se l aggiornamento richiede validazione'}\n"
+        "- File rilevanti:\n"
+        f"{file_lines}\n"
+    )
+
+    text = PROGRESS_PATH.read_text(encoding="utf-8")
+    marker = "## Aggiornamenti Automatici\n"
+    if marker not in text:
+        text += "\n\n" + marker + "\n"
+    text = text.rstrip() + "\n" + entry
+    PROGRESS_PATH.write_text(text, encoding="utf-8")
+
+    if stage:
+        subprocess.run(["git", "add", "tesiprogress.md"], cwd=ROOT, check=False)
+    return True
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Append an update entry to tesiprogress.md")
+    parser.add_argument("--title", default="")
+    parser.add_argument("--summary", default="")
+    parser.add_argument("--files", default="")
+    parser.add_argument("--tests", default="")
+    parser.add_argument("--from-git", action="store_true")
+    parser.add_argument("--source", default="manual")
+    parser.add_argument("--stage", action="store_true")
+    args = parser.parse_args()
+
+    files = [item.strip().replace("\\", "/") for item in args.files.split(",") if item.strip()]
+    source = args.source
+    if args.from_git:
+        files = changed_files(staged=True)
+        source = "hook"
+
+    title = args.title or "Aggiornamento tecnico del progetto"
+    if args.from_git:
+        title = "Aggiornamento pre-commit rilevante"
+
+    summary = args.summary or (
+        "Modifiche rilevanti rilevate automaticamente. Integrare questa voce con dettagli metodologici se il lavoro incide sulla tesi."
+    )
+
+    updated = append_entry(title=title, summary=summary, files=files, tests=args.tests, source=source, stage=args.stage)
+    if updated:
+        print(f"tesiprogress.md aggiornato: {title}")
+    else:
+        print("tesiprogress.md non aggiornato: nessuna modifica rilevante rilevata")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+

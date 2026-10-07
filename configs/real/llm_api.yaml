@@ -1,0 +1,25 @@
+name: real_llm_api
+seed: 11
+days: 100
+simulation: {days_per_step: 3650, max_days: 3652500}
+snapshot_interval: 10
+world:
+  width: 50
+  height: 50
+agents:
+  count: 15
+  llm_count: 3
+  llm_assignments:
+    - provider: gpt
+      model: gpt-4o-mini
+    - provider: gemini
+      model: gemini-2.5-flash
+    - provider: claude
+      model: claude-haiku-4-5
+llm:
+  decision_interval_days: 3650
+  max_calls_per_run: 120
+  max_calls_per_day: 20
+  max_estimated_cost_usd: 3.0
+population:
+  enabled: false

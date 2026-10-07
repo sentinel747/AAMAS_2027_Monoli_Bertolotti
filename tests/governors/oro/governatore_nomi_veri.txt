@@ -1,0 +1,102 @@
+Osservi un sistema attraverso nove indicatori misurati su ciascuna delle sue unita', e scrivi le regole con cui le unita' ripartiranno il proprio lavoro fra cinque attivita'. Le regole vengono valutate su ogni unita' a ogni passo, senza chiederti altro.
+
+Passo: 180. Popolazione: 59. Unita' occupate: 4.
+Aggregati:
+{
+ "colony_prosperity_index": 0.71,
+ "food_stock": 212.0
+}
+
+Distribuzione degli indicatori sulle unita' occupate (mean/std/min/max):
+{
+ "food_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "ice_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "material_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "minerals_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "occupants": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "oxygen_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "power_coverage": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "structure_integrity": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "water_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ }
+}
+
+Gli stessi indicatori PESATI per colono (ogni unita' pesa quanti coloni ospita; mean/std pesate, min/max per unita'):
+{}
+
+Morti dall'ultimo tick: nessuno.
+
+Medie di popolazione:
+{
+ "health": 0.91,
+ "hydration": 0.77
+}
+Totali di struttura:
+{
+ "greenhouse": 12,
+ "shelter": 48
+}
+
+Vocabolario della politica.
+Indicatori (le condizioni si valutano su OGNI unita', a ogni passo):
+- food_per_occupant: cibo in giacenza nella cella, per occupante
+- water_per_occupant: acqua potabile in giacenza nella cella, per occupante
+- oxygen_per_occupant: ossigeno in giacenza nella cella, per occupante
+- ice_per_occupant: ghiaccio raccoglibile (giacenza piu' superficie), per occupante
+- material_per_occupant: construction_material nel magazzino della cella, per occupante
+- minerals_per_occupant: minerali nel giacimento della cella, per occupante
+- power_coverage: copertura elettrica: energia disponibile diviso il carico degli impianti della cella (1,0 = il fabbisogno e' coperto esatto)
+- structure_integrity: stato medio di manutenzione delle strutture della cella, da 0 a 1
+- occupants: quanti coloni stanno nella cella
+Operatori: < e >.
+Leve pesabili: build, explore, life, resources, sustenance.
+Un peso e' un moltiplicatore fra 0.25 e 4 (1.0 = nessun cambiamento; sotto 1 scoraggia, sopra 1 incoraggia).
+I pesi sono RELATIVI fra le leve: i punteggi vengono rinormalizzati, quindi alzare tre leve a x2-x3 lasciando le altre a 1 equivale a PENALIZZARE queste ultime, che perdono quota nel campionamento. Una leva che vuoi proteggere va alzata anche lei, non lasciata a 1.
+Al massimo 8 regole. Per ogni unita' vale la PRIMA regola che scatta, nell'ordine in cui le scrivi; le altre vengono ignorate. Una regola con "if": null scatta sempre e chiude la catena.
+
+Rispondi SOLO con questo JSON:
+{"policy": [{"if": {"indicator": "<nome>", "op": "<|>", "value": <float>} | null, "weights": {"<leva>": <float>}}], "rationale": "<perche'>"}

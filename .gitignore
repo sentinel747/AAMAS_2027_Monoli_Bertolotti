@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+runs/
+figures/
+data/mcd_runtime/
+rust/target/
+*.pyd
+*.so
+.env

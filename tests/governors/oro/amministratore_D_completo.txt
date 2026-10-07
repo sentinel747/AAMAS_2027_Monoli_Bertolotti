@@ -1,0 +1,140 @@
+You are the administrator of district 2 of a Martian colony. The central government has just issued the policy by which the colonists choose what to do. You administer 4 cells and not the others.
+
+The COMPLETE policy of the government, in the order in which it holds (for each cell the FIRST rule that fires is the one that counts):
+  1. if food_per_occupant < 2 -> sustenance x2
+  2. always -> sustenance x1, build x1
+
+Here is what this policy produces, cell by cell, in YOUR district:
+  cell [10, 20]: no rule, pure preferences
+  cell [10, 21]: no rule, pure preferences
+
+You have two choices, and neither of them is the fallback:
+  ACCEPT if the government's policy is already adequate for your cells: they will apply it exactly as it is.
+  REWRITE if it is not: your chain takes the place of the government's, for your cells and those only. You may start from the government's rules and change their thresholds, weights or order, or write new ones: what you hand over is the ENTIRE law of your cells, not an amendment.
+Accepting a policy that works is as correct as correcting one that does not. Accepting out of inertia a policy that does not act on your cells is not: if above you read NO INTERVENTION, the government is leaving you without a policy, and the decision is entirely yours.
+
+Step: 180. Colonists in your district: 59.
+Deaths in your district since the last round: 4 (7% of your colonists) — starvation: 3, dehydration: 1.
+Last time you had REWRITTEN it as: if food_per_occupant < 2 -> sustenance x2; always -> sustenance x1, build x1 — but on none of your cells did it fire with weights other than 1: you left them WITH NO POLICY, neither the government's nor your own.
+
+Metrics of the whole colony (the national picture):
+{
+ "colony_prosperity_index": 0.71,
+ "food_stock": 212.0
+}
+
+Distribution of the indicators over YOUR cells (mean/std/min/max):
+{
+ "food_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "ice_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "material_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "minerals_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "occupants": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "oxygen_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "power_coverage": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "structure_integrity": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ },
+ "water_per_occupant": {
+  "max": 2.0,
+  "mean": 1.0,
+  "min": 0.1,
+  "std": 0.5
+ }
+}
+
+The same indicators over the WHOLE colony, for comparison:
+{
+ "food_per_occupant": {
+  "mean": 1.0
+ },
+ "ice_per_occupant": {
+  "mean": 1.0
+ },
+ "material_per_occupant": {
+  "mean": 1.0
+ },
+ "minerals_per_occupant": {
+  "mean": 1.0
+ },
+ "occupants": {
+  "mean": 1.0
+ },
+ "oxygen_per_occupant": {
+  "mean": 1.0
+ },
+ "power_coverage": {
+  "mean": 1.0
+ },
+ "structure_integrity": {
+  "mean": 1.0
+ },
+ "water_per_occupant": {
+  "mean": 1.0
+ }
+}
+
+State of the colonists of your district (mean and dangerous tail: min for health/hydration/satiety/morale, max for fatigue/stress):
+{
+ "health": 0.91,
+ "hydration": 0.77
+}
+
+Vocabulary (identical to the government's).
+Cell indicators:
+- food_per_occupant: food in stock in the cell, per occupant
+- water_per_occupant: drinkable water in stock in the cell, per occupant
+- oxygen_per_occupant: oxygen in stock in the cell, per occupant
+- ice_per_occupant: collectable ice (stock plus surface), per occupant
+- material_per_occupant: construction_material in the cell's warehouse, per occupant
+- minerals_per_occupant: minerals in the cell's seam, per occupant
+- power_coverage: power coverage: available energy divided by the load of the cell's installations (1.0 = demand is met exactly)
+- structure_integrity: average maintenance state of the cell's structures, from 0 to 1
+- occupants: how many colonists are in the cell
+Operators: < and >.
+Weightable categories: build, explore, life, resources, sustenance.
+A weight is a multiplier between 0.25 and 4 (1.0 = no change).
+Weights are RELATIVE: the scores are renormalised, so raising three of them while leaving the others at 1 amounts to penalising the latter. A category you want to protect must be raised too.
+At most 8 rules, and for each cell the FIRST one that fires is the one that counts.
+
+Reply ONLY with one of these two JSON objects:
+{"accept": true, "rationale": "<why the government policy is fine>"}
+{"accept": false, "policy": [{"if": {"indicator": "<name>", "op": "<|>", "value": <float>} | null, "weights": {"<category>": <float>}}], "rationale": "<why I am changing it>"}

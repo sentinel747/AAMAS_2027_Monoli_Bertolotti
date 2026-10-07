@@ -1,0 +1,224 @@
+{
+ "profile": "jev-semif-agent-v1",
+ "colony": {
+  "population": 287,
+  "mean_health": 0.84,
+  "mean_hydration": 0.71,
+  "mean_satiety": 0.66,
+  "mean_fatigue": 0.35
+ },
+ "cases": [
+  {
+   "id": "c01",
+   "expected": "sustenance",
+   "colonist": {
+    "hydration": 0.12,
+    "satiety": 0.8,
+    "health": 0.9,
+    "fatigue": 0.2,
+    "note": "carrying 0 water; ice deposit in cell"
+   }
+  },
+  {
+   "id": "c02",
+   "expected": "sustenance",
+   "colonist": {
+    "hydration": 0.85,
+    "satiety": 0.1,
+    "health": 0.88,
+    "fatigue": 0.3,
+    "note": "no food in inventory; greenhouse in cell"
+   }
+  },
+  {
+   "id": "c03",
+   "expected": "life",
+   "colonist": {
+    "hydration": 0.9,
+    "satiety": 0.9,
+    "health": 0.15,
+    "fatigue": 0.4,
+    "note": "2 med kits in inventory"
+   }
+  },
+  {
+   "id": "c04",
+   "expected": "life",
+   "colonist": {
+    "hydration": 0.9,
+    "satiety": 0.85,
+    "health": 0.9,
+    "fatigue": 0.95,
+    "note": "exhausted after 3 weeks of labour"
+   }
+  },
+  {
+   "id": "c05",
+   "expected": "build",
+   "colonist": {
+    "hydration": 0.9,
+    "satiety": 0.9,
+    "health": 0.95,
+    "fatigue": 0.1,
+    "note": "construction site open in cell needs no more material; skilled builder"
+   }
+  },
+  {
+   "id": "c06",
+   "expected": "resources",
+   "colonist": {
+    "hydration": 0.9,
+    "satiety": 0.9,
+    "health": 0.95,
+    "fatigue": 0.1,
+    "note": "cell has rich mineral and material deposits, colony short of material"
+   }
+  },
+  {
+   "id": "c07",
+   "expected": "explore",
+   "colonist": {
+    "hydration": 0.9,
+    "satiety": 0.9,
+    "health": 0.95,
+    "fatigue": 0.1,
+    "note": "cell overcrowded (190 occupants), unexplored fertile cell 2 km east"
+   }
+  },
+  {
+   "id": "c08",
+   "expected": "build",
+   "colonist": {
+    "hydration": 0.88,
+    "satiety": 0.86,
+    "health": 0.92,
+    "fatigue": 0.15,
+    "note": "habitat damaged, repair crew short-handed, materials in storage"
+   }
+  },
+  {
+   "id": "c09",
+   "expected": "sustenance",
+   "colonist": {
+    "hydration": 0.3,
+    "satiety": 0.25,
+    "health": 0.7,
+    "fatigue": 0.3,
+    "note": "both food and water nearly exhausted"
+   }
+  },
+  {
+   "id": "c10",
+   "expected": "sustenance",
+   "colonist": {
+    "hydration": 0.2,
+    "satiety": 0.9,
+    "health": 0.85,
+    "fatigue": 0.2,
+    "note": "water extractor in cell working"
+   }
+  },
+  {
+   "id": "c11",
+   "expected": "life",
+   "colonist": {
+    "hydration": 0.8,
+    "satiety": 0.8,
+    "health": 0.25,
+    "fatigue": 0.6,
+    "note": "injured in a dust storm; infirmary in cell"
+   }
+  },
+  {
+   "id": "c12",
+   "expected": "life",
+   "colonist": {
+    "hydration": 0.85,
+    "satiety": 0.85,
+    "health": 0.6,
+    "fatigue": 0.9,
+    "note": "has not rested for 20 days"
+   }
+  },
+  {
+   "id": "c13",
+   "expected": "build",
+   "colonist": {
+    "hydration": 0.9,
+    "satiety": 0.9,
+    "health": 0.95,
+    "fatigue": 0.1,
+    "note": "power coverage in cell is 40%; solar array blueprint ready; materials available"
+   }
+  },
+  {
+   "id": "c14",
+   "expected": "build",
+   "colonist": {
+    "hydration": 0.9,
+    "satiety": 0.9,
+    "health": 0.95,
+    "fatigue": 0.2,
+    "note": "new families arriving; cell has no free habitat; materials in storage"
+   }
+  },
+  {
+   "id": "c15",
+   "expected": "resources",
+   "colonist": {
+    "hydration": 0.9,
+    "satiety": 0.85,
+    "health": 0.95,
+    "fatigue": 0.15,
+    "note": "three construction sites stalled for lack of material; material deposit in cell"
+   }
+  },
+  {
+   "id": "c16",
+   "expected": "resources",
+   "colonist": {
+    "hydration": 0.85,
+    "satiety": 0.9,
+    "health": 0.9,
+    "fatigue": 0.2,
+    "note": "colony minerals per capita 0.1; mineral vein in cell"
+   }
+  },
+  {
+   "id": "c17",
+   "expected": "explore",
+   "colonist": {
+    "hydration": 0.9,
+    "satiety": 0.9,
+    "health": 0.95,
+    "fatigue": 0.1,
+    "note": "cell resources depleted; neighbouring cells unexplored"
+   }
+  },
+  {
+   "id": "c18",
+   "expected": "explore",
+   "colonist": {
+    "hydration": 0.9,
+    "satiety": 0.9,
+    "health": 0.95,
+    "fatigue": 0.1,
+    "note": "scout assigned to map the crater rim for a new settlement"
+   }
+  },
+  {
+   "id": "c19",
+   "expected": "unknown",
+   "colonist": {
+    "note": "sensor data unavailable for this colonist"
+   }
+  },
+  {
+   "id": "c20",
+   "expected": "unknown",
+   "colonist": {
+    "note": "record corrupted"
+   }
+  }
+ ]
+}
