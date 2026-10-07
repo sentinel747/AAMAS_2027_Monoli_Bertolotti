@@ -64,6 +64,8 @@ scripts from the repository root:
 | Same for the second model (gpt-oss-20b); verdicts are withheld because its repeated arm is incomplete | `python scripts/esiti_campagna.py runs/paper_oss` |
 | Decision-history anchoring | `python scripts/analisi_ancoraggio.py runs/paper_qwen/variante_* runs/paper_qwen/cieco_due_livelli` |
 | Stress test on the four other worlds | `python scripts/controllo_copertura_mondi_report.py` |
+| Final maps, reference world, seed 6 (Fig. 3), written to `figures/` | `python scripts/paper/figura_mappe_finali.py` |
+| Largest ungoverned colony on the globe (Fig. 1), written to `figures/` | `python scripts/paper/figura_globo.py` |
 | Format, not model (Fig. 3), written to `figures/`; its top row combines the four executions of the reference arm (`runs/controllo_copertura_20260926/variante_D_vera*` and `runs/paper_qwen/variante_D*`) | `python scripts/paper/figura_formato_2x2.py` |
 
 Comments and output of the analysis scripts are in Italian; numbers, file
