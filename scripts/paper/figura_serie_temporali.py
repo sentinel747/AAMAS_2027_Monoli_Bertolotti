@@ -1,8 +1,7 @@
-"""Paper figure: occupied cells and population over 1000 steps, by model.
+"""Paper figure: occupied cells over 1000 steps, by model.
 
-Rows: occupied cells (the paper's territory measure, `occupied_cells` in
-state_timeseries.csv, equal to `celle_totali` in results.json) and population.
-Columns: Qwen3.8-27B (runs/paper_qwen) and gpt-oss-20b (runs/paper_oss).
+Occupied cells are the paper's territory measure (`occupied_cells` in
+state_timeseries.csv, equal to `celle_totali` in results.json). Panels: Qwen3.8-27B (runs/paper_qwen) and gpt-oss-20b (runs/paper_oss).
 In each panel every governed run of the seven prompt arms (governor and
 administrators) is a thin line at low opacity, their mean is bold, and the five
 ungoverned colonies of the same campaign are grey and dashed.
@@ -23,7 +22,7 @@ BRACCI = ["variante_0", "variante_A", "variante_B", "variante_C", "variante_D",
           "variante_D_rep2", "variante_F"]
 MODELLI = [("Qwen3.8-27B", ROOT / "runs/paper_qwen", "#c2410c"),
            ("gpt-oss-20b", ROOT / "runs/paper_oss", "#1d4ed8")]
-SERIE = [("occupied_cells", "occupied cells"), ("population", "colonists")]
+SERIE = [("occupied_cells", "occupied cells")]
 GRIGIO = "#6b6f78"
 
 
@@ -44,8 +43,8 @@ def leggi(cartella: Path):
 
 plt.rcParams.update({"font.size": 7, "pdf.fonttype": 42, "font.family": "DejaVu Sans",
                      "axes.spines.top": False, "axes.spines.right": False})
-fig, assi = plt.subplots(2, 2, figsize=(3.35, 2.9), sharex=True, sharey="row",
-                         constrained_layout=True)
+fig, assi = plt.subplots(1, 2, figsize=(3.35, 1.65), sharex=True, sharey="row",
+                         constrained_layout=True, squeeze=False)
 for j, (nome, campagna, colore) in enumerate(MODELLI):
     base = leggi(campagna / "ctrl_none")
     gov = [r for b in BRACCI for r in leggi(campagna / b)]
@@ -68,7 +67,7 @@ for j, (nome, campagna, colore) in enumerate(MODELLI):
             ax.set_title(nome, fontsize=7, color=colore, pad=3)
         if j == 0:
             ax.set_ylabel(etichetta, fontsize=7)
-        if i == 1:
+        if i == len(SERIE) - 1:
             ax.set_xlabel("step (week)", fontsize=6.5)
             ax.set_xticks([0, 250, 500, 750, 1000])
 h, l = assi[0][0].get_legend_handles_labels()
