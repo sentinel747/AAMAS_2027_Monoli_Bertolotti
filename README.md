@@ -67,6 +67,7 @@ scripts from the repository root:
 | Final maps of the reference world, seed 6, written to `figures/` | `python scripts/paper/figura_mappe_finali.py` |
 | Largest ungoverned colony on the globe, written to `figures/` | `python scripts/paper/figura_globo.py` |
 | Occupied cells and mean colonist health over time, by model, written to `figures/` | `python scripts/paper/figura_serie_temporali.py` |
+| Seconds per decision, writing vs choosing, written to `figures/` | `python scripts/paper/figura_latenza.py` |
 | Format, not model, written to `figures/`; its top row combines the four executions of the reference arm (`runs/controllo_copertura_20260926/variante_D_vera*` and `runs/paper_qwen/variante_D*`) | `python scripts/paper/figura_formato_2x2.py` |
 
 Comments and output of the analysis scripts are in Italian; numbers, file
