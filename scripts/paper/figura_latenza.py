@@ -6,6 +6,7 @@ Medians with interquartile ranges, read from the run records:
   variante_D_vera{,_rep2}_s*, runs/paper_qwen/variante_D{,_rep2});
 - Qwen3.8-27B and Jev choosing (System 1): semantic_decisions.jsonl (`latency_ms`)
   of runs/confronto_system1/tesi/{qwen,jev}_s1_s*, the same main setting.
+Runs set aside by the admission gate (folders starting with "_") are excluded.
 
 Usage: python scripts/paper/figura_latenza.py  (writes figures/latency.pdf/.png)
 """
@@ -23,10 +24,17 @@ RUNS = ROOT / "runs"
 OUT = ROOT / "figures" / "latency"
 
 
+def ammessi(schema, nome):
+    """Registri `nome` sotto `schema`, escluse le run scartate (cartelle che iniziano con «_»)."""
+    for f in glob.glob(str(RUNS / schema / "**" / nome), recursive=True):
+        if not any(p.startswith("_") for p in Path(f).relative_to(RUNS).parts):
+            yield f
+
+
 def generazione(schemi):
     v = []
     for s in schemi:
-        for f in glob.glob(str(RUNS / s / "**" / "governor_decisions.jsonl"), recursive=True):
+        for f in ammessi(s, "governor_decisions.jsonl"):
             for riga in open(f, encoding="utf-8"):
                 g = json.loads(riga).get("governor") or {}
                 if g.get("latency_s"):
@@ -37,7 +45,7 @@ def generazione(schemi):
 def scelta(schemi):
     v = []
     for s in schemi:
-        for f in glob.glob(str(RUNS / s / "**" / "semantic_decisions.jsonl"), recursive=True):
+        for f in ammessi(s, "semantic_decisions.jsonl"):
             for riga in open(f, encoding="utf-8"):
                 x = json.loads(riga).get("latency_ms")
                 if x is not None:
