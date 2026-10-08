@@ -2,10 +2,11 @@
 """L'ancoraggio cognitivo, misurato sui registri delle campagne marziane.
 
 **Da dove viene la domanda.** Nello studio sul dilemma del prigioniero
-(Monoli et al., WOA 2026) un agente linguistico che ha scritto perche' ritorce
+("Strategic Amnesia in LLM Agents playing the Iterated Prisoner's
+Dilemma", WOA 2026) un agente linguistico che ha scritto perche' ritorce
 continua a ritorcere anche quando le prove sono state tolte dal prompt: la
 propria traccia di ragionamento e' un'ancora. Governatore e amministratori di
-questa tesi ricevono nel prompt la propria decisione precedente con la sua
+questo studio ricevono nel prompt la propria decisione precedente con la sua
 motivazione. La misura gemella e' questa: quanto la decisione di oggi dipende
 dalla decisione di ieri, A PARITA' DI EVIDENZA.
 

@@ -151,7 +151,8 @@ def processi_vivi() -> dict[str, "psutil.Process"]:
         if not any("run_governor_experiment" in c for c in cmd):
             continue
         cartella = cmd[cmd.index("--out") + 1].replace("\\", "/").rstrip("/")
-        vivi[cartella.split("TerraformazioneLLMs/")[-1]] = _processi.setdefault(p.info["pid"], p)
+        relativa = cartella[cartella.find("runs/"):] if "runs/" in cartella else cartella
+        vivi[relativa] = _processi.setdefault(p.info["pid"], p)
     return vivi
 
 

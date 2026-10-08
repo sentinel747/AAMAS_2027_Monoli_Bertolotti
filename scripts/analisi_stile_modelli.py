@@ -3,8 +3,8 @@
 
 **La domanda.** I quattro modelli producono colonie molto diverse sullo stesso
 mondo e sugli stessi semi: 92, 59, 61 e 44 celle occupate contro le 107 della
-baseline, e decessi per nascita da 0,41 a 0,22. Il relatore ha chiesto di non
-fermarsi a riportarlo ma di guardare i registri e formulare un'ipotesi.
+baseline, e decessi per nascita da 0,41 a 0,22. Non basta riportarlo:
+bisogna guardare i registri e formulare un'ipotesi.
 
 **Dove guardare.** Non nei numeri di esito, che sono la conseguenza, ma nelle
 leggi: `governor_decisions.jsonl` conserva ogni politica scritta, regola per

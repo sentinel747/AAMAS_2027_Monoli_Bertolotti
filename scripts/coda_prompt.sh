@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # La campagna incrociata sui prompt: la parola, la gerarchia, la lingua.
 #
-# **La domanda.** Il relatore ha sollevato tre obiezioni al prompt con cui tutte
+# **La domanda.** Ci sono tre obiezioni possibili al prompt con cui tutte
 # le campagne dell'archivio sono state misurate: «pilastro» non e' la parola
 # giusta per cio' che la politica pesa e il testo per giunta ne usa due (dice
 # anche «leva»); il governatore non sa che sotto di lui ci sono amministratori

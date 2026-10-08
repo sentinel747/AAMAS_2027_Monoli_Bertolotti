@@ -5,8 +5,8 @@
 meno celle della baseline. «Meno celle» pero' ammette due letture molto diverse:
 una colonia piu' piccola, oppure una colonia altrettanto grande ma piu'
 raccolta. Le mappe finali suggeriscono la seconda --- stessi coloni, meno
-avamposti --- ma una figura non e' una misura, e il relatore ha chiesto
-giustamente di mostrarlo con un numero.
+avamposti --- ma una figura non e' una misura, e va mostrato
+con un numero.
 
 **Le misure, e perche' queste.** Si calcolano sull'ultima istantanea di
 ogni run, prendendo come centro la cella piu' popolata (la madre, che a parita'

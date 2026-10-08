@@ -12,7 +12,7 @@ import statistics
 import sys
 from pathlib import Path
 
-RADICE = Path(r"C:\Users\user\Desktop\TerraformazioneLLMs")
+RADICE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RADICE / "scripts"))
 
 import figure_confronto as fc  # noqa: E402

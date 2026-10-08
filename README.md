@@ -1,7 +1,7 @@
-# Coordination and Resource Management in Societies of LLM-Based Agents
+# From Decision-Making to Rule-Making: Evaluating LLM Governance in Agent-Based Societies
 
-Source code for the AAMAS 2027 submission *Coordination and Resource
-Management in Societies of LLM-Based Agents*. A linguistic governor and
+Source code for the AAMAS 2027 submission *From Decision-Making to
+Rule-Making: Evaluating LLM Governance in Agent-Based Societies*. A linguistic governor and
 district administrators write the behavioural law of a mass-conserving Mars
 colony of 300 non-linguistic colonists. Every comparison is paired by seed
 against the ungoverned colony and read against the spread between identical
